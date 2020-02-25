@@ -11,6 +11,7 @@ info.php
 devFile.php
 .env
 .vagrant
+composer.lock
 backup_*.sql
 
 
