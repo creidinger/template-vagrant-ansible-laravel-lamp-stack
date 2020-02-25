@@ -6,21 +6,14 @@
   roles:
     - role: creidinger.common
     - role: creidinger.php
+    - role: geerlingguy.composer
     - role: creidinger.apache
     - role: creidinger.mysql_server
     - role: creidinger.phpmyadmin
       when: install_phpymyadmin is defined
+    - role: laravel_config
 
   tasks:
-  # - name: Install npm packages based on /assets/pacage.json
-  #   npm:
-  #     path: /vagrant/src/public_html/assets
-  #
-  # - name: Update composer packages
-  #   composer:
-  #     command: updated
-  #     working_dir: /vagrant/src/public_html
-  #
   - name: restart apache
     service:
       name: apache2

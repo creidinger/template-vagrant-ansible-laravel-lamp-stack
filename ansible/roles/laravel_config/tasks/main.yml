@@ -1,0 +1,37 @@
+---
+# Final setup steps for Laravel provisioning
+- name: Check for custom laravel .env template in "{{ playbook_dir }}/templates/laravel/env.j2"
+  stat:
+    path: "{{ playbook_dir }}/templates/laravel/env.j2"
+  register: stat_result
+  delegate_to: 127.0.0.1
+  become: false
+
+- name: If custom template exists for this role use it
+  set_fact:
+    env_template_path: "{{ playbook_dir }}/templates/laravel/env.j2"
+  when: stat_result.stat.exists == True
+
+- name: If no custom templates exist, use the ones in the larabel_config folder
+  set_fact:
+    env_template_path: "{{ role_path }}/templates/env.j2"
+  when: stat_result.stat.exists == False
+
+- name: laravel .env template dir is "{{ vhost_template_path }}"
+  command: echo
+
+- name: Update Laravel (will install vendor folder based on composer requirements)
+  composer:
+    command: install
+    working_dir: "{{ composer_working_dir }}"
+
+- name: Generate new .env file for environment from template
+  template:
+    src: "{{ env_template_path }}"
+    dest: "{{ doc_root }}/.env"
+  notify: restart apache
+
+- name: Generate application encryption key
+  shell: |
+    cd {{ doc_root }}
+    php artisan key:generate
