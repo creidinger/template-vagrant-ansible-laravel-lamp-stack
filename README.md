@@ -1,0 +1,1 @@
+# template-vagrant-ansible-laravel-lamp-stack
