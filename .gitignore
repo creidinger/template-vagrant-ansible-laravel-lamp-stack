@@ -1,0 +1,21 @@
+### FILE TYPES
+*.zip
+*.retry
+*.iml
+*.log
+
+
+### FILES
+test.php
+info.php
+devFile.php
+.env
+.vagrant
+backup_*.sql
+
+
+### FOLDERS
+# npm
+node_modules/
+# composer
+vendor/

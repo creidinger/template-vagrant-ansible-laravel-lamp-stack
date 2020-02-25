@@ -1,0 +1,11 @@
+---
+# required ansible galaxy roles
+# Run to following command to pull them down
+# ansible-galaxy install -r requirements.yml --force
+- src: creidinger.common
+- src: creidinger.php
+- src: creidinger.composer
+- src: creidinger.apache
+- src: creidinger.mysql_server
+- src: creidinger.phpmyadmin
+- src: geerlingguy.nodejs
