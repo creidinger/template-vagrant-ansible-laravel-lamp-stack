@@ -1,0 +1,10 @@
+<TEMPLATE>-local.adepdev.com
+
+[www]
+<TEMPLATE>-local.adepdev.com
+
+[sql]
+<TEMPLATE>-local.adepdev.com
+
+[global:children]
+www

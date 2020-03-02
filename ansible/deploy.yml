@@ -1,0 +1,11 @@
+---
+# deplyo src to gui and rest
+# copy the script below and change the <env> to the the one you need
+# ansible-playbook deploy.yml -i inventories/<env> --ask-become-pass
+- hosts: www
+  become: yes
+  gather_facts: true
+
+  roles:
+    - role: deploy
+      when: deploy_src_files

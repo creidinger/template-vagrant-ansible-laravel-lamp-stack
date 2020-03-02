@@ -12,6 +12,8 @@
     - role: creidinger.phpmyadmin
       when: install_phpymyadmin is defined
     - role: laravel_config
+    - role: deploy
+      when: deploy_src_files
 
   tasks:
   - name: restart apache

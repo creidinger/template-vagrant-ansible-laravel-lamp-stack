@@ -1,0 +1,48 @@
+---
+# gui
+- name: "correct permissions in {{ remote_path }}"
+  become: yes
+  file:
+    path: "{{ remote_path }}"
+    recurse: yes
+    state: directory
+    group: root
+    owner: root
+
+# Part 1
+# Fix for this issue
+# https://github.com/ansible/ansible/issues/20769
+- name: (DEBUG) Allow RSYNC for new super user without SUDO password
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    insertafter: '^%sudo'
+    line: "pe ALL=NOPASSWD: /usr/bin/rsync"
+
+- name: "Uploading code and content from local {{ source_path }} to remote web server {{ remote_path }}"
+  become: yes
+  synchronize:
+    src: "..{{ source_path }}"
+    dest: "{{ remote_path }}"
+    recursive: yes
+    delete: yes
+
+# reset permission in case coppied files retain their old permissions
+- name: "correct permissions in {{ remote_path }}"
+  become: yes
+  file:
+    path: "{{ remote_path }}"
+    recurse: yes
+    state: directory
+    mode: '0777'
+    group: root
+    owner: root
+
+# Part 2
+# Fix for this issue
+# https://github.com/ansible/ansible/issues/20769
+- name: (DEBUG) Disallow RSYNC for new super user without SUDO password
+  lineinfile:
+    path: /etc/sudoers
+    state: absent
+    line: "pe ALL=NOPASSWD: /usr/bin/rsync"

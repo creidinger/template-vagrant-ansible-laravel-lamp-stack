@@ -1,0 +1,39 @@
+---
+# ansible-playbook provision.yml -i inventories/<hosts> --ask-become-pass
+ansible_ssh_user:         ubuntu
+
+# this determins how ssl is set up
+vagrant_local_hostname:   false
+
+deploy_src_files:         true
+
+host_key_checking:        false
+
+# path to repo src files
+source_path:              /src/public_html/
+
+doc_root:                 /var/www/stage.<TEMPLATE>.com
+
+composer_working_dir:     /var/www/stage.<TEMPLATE>.com
+
+servername:               stage.<TEMPLATE>.com
+serveralias:              stage.<TEMPLATE>.com
+base_url:                 http://stage.<TEMPLATE>.com
+
+remote_path:              /var/www/stage.<TEMPLATE>
+php_display_errors:       On
+debug_mode:               true
+install_phpymyadmin:      true
+auth_type:                none
+
+# sql config
+# some vars used in apache
+mysql_hostname:           localhost
+mysql_root_password:      "mysqlrootpassword"
+mysql_password:           "mysqlpassword"
+mysql_encrypt_passphrase: "mysql_encryption_passphrase"
+mysql_host:               localhost
+mysql_database:           <TEMPLATE>
+mysql_user:               <TEMPLATE>
+mysql_port:               3306
+mysql_backup_filename:    REPLACE_ME.sql
