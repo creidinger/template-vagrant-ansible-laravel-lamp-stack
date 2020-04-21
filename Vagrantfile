@@ -47,8 +47,9 @@ Vagrant.configure("2") do |config|
       v.gui     = false
       v.customize [
         "modifyvm", :id,
-        "--natdnshostresolver1", "on", # allow resovle hosts from hosts hostfile
-        "--usbehci", "off"          # turn off usb2.0
+        "--natdnshostresolver1", "on",  # allow resovle hosts from hosts hostfile
+        "--usbehci", "off",             # turn off usb2.0
+        "--vram", 128                   # Set GPU memor for vm
       ]
     end
 
