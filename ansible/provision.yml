@@ -10,7 +10,7 @@
     - role: creidinger.apache
     - role: creidinger.mysql_server
     - role: creidinger.phpmyadmin
-      when: install_phpymyadmin is defined
+      when: install_phpymyadmin
     - role: laravel_config
     - role: deploy
       when: deploy_src_files

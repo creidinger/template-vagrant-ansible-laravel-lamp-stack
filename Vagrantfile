@@ -39,19 +39,22 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "<template>-local.adepdev.com", primary: true do |server|
 
-    # global Virtualbox config
-    server.vm.provider :virtualbox do |v|
-      v.name    = VM_NAME
-      v.memory  = 512
-      v.cpus    = 1
-      v.gui     = false
-      v.customize [
-        "modifyvm", :id,
-        "--natdnshostresolver1", "on",  # allow resovle hosts from hosts hostfile
-        "--usbehci", "off",             # turn off usb2.0
-        "--vram", 128                   # Set GPU memor for vm
-      ]
-    end
+      # global Virtualbox config
+      # Docs: https://www.vagrantup.com/docs/virtualbox/configuration.html
+      # Docs: https://www.virtualbox.org/manual/UserManual.html#vboxmanage-modifyvm
+      server.vm.provider :virtualbox do |v|
+        v.name    = VM_NAME
+        v.memory  = 512
+        v.cpus    = 1
+        v.gui     = false
+        v.customize [
+          "modifyvm", :id,
+          "--natdnshostresolver1", "on",      # allow resovle hosts from hosts hostfile
+          "--usbehci", "off",                 # turn off usb2.0
+          "--vram", 128,                      # Set GPU memory
+          "--graphicscontroller", "vmsvga"    # Set contrller that is best for mac / linux
+        ]
+      end
 
     ####### vagrant hostmanager config
     server.vm.hostname = VM_HOSTNAME
